@@ -1,0 +1,43 @@
+.admin-container{
+    // padding: 50px;
+    display: flex; 
+    // các component xếp theo hàng ngang
+    .admin-sidebar{
+        .ps-sidebar-root{
+            color: white;
+            height: 100vh;
+            .ps-sidebar-container{
+                background-color: rgb(49 44 44 / 70%) 
+            }
+            .ps-menuitem-root >.ps-menu-button:hover {
+                background-color: #5a5454;
+            }
+            
+        }
+    }
+    .admin-content{
+        
+        width: 100%;
+        .admin-header{
+        height: 40px;
+        .title{
+            font-weight: 600;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        }
+        .admin-main{
+            
+            .user-paginate{
+                    display: flex;
+                    justify-content: center;
+                    
+            }
+        }
+    }
+}
+a.ps-menu-button {
+    background-color: #2a2a2a;
+}

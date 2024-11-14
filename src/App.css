@@ -1,38 +1,122 @@
-.App {
-  text-align: center;
-}
+.app-container {
+  width: 80%;
+  margin: 0 auto; /* Căn giữa theo chiều ngang */
+  /* position: relative;  */
+  /* Đảm bảo không ảnh hưởng đến các phần tử con */
+  min-height: 100vh; /* Đảm bảo khối chiếm đủ chiều cao của màn hình */
+  .header-container {
+    /* .buttom {
+      margin: 10px;
+    } */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      /* Đảm bảo nội dung được phân bố đều */
+      padding: 5px 25px;
+      width: 100%;
+      align-items: center; /* Đảm bảo các phần tử nằm giữa theo chiều dọc */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+      /* Tạo khoảng cách giữa các phần tử */
+    }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+    .find-book {
+      display: flex;
+      align-items: center; /* Căn giữa theo chiều dọc */
+      position: relative;
+      /* Để có thể căn chỉnh chính xác vị trí */
+    }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+    .find-book input {
+      padding: 8px 12px;
+      height: 35px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px; /* Khoảng cách giữa input và icon */
+    }
 
-.App-link {
-  color: #61dafb;
-}
+    .find-book button {
+      position: absolute;
+      /* Đảm bảo nút tìm kiếm nằm trong cùng một ô */
+      right: 0;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 20px;
+    }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+    .container {
+      .navbar-collapse {
+        background-color: #a5986d;
+        border-radius: 3px;
+        padding: 5px;
+      }
+    }
+    /* display: flex; */
+    .btn-login {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 0 15px;
+      padding: 0px 15px;
+      height: 40px;
+    }
+
+    .btn-signup {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 8px;
+      padding: 0px 15px;
+      color: white;
+      height: 40px;
+      background-color: black;
+      &:hover {
+        background-color: #303030;
+      }
+    }
+    .nav-link {
+      /* padding-top: 18px; Điều chỉnh khoảng cách trên */
+      transition: color 0.3s ease; /* Thêm hiệu ứng chuyển màu mượt mà */
+      color: white;
+      display: flex;
+      gap: 5px;
+      padding-left: 20px;
+      &.active {
+        /* background-color: black; */
+        border-radius: 5px;
+        color: black !important;
+      }
+    }
+    .navbar-brand {
+      gap: 5px;
+      display: flex;
+      .books {
+        padding-top: 12px;
+        font-size: 1.5em;
+        margin-left: 10px;
+      }
+      /* text-align: center; */
+    }
+    .navbar {
+      /* background-color: #dcdcdc !important; */
+      z-index: 10;
+      /* opacity: 0.8; */
+      /* padding: 8px 0px; */
+      padding: 0;
+      /* margin: 0; */
+      .nav-link {
+        &.active {
+          color: black;
+        }
+      }
+      @media (min-width: 1400px) {
+        .container,
+        .container-lg,
+        .container-md,
+        .container-sm,
+        .container-xl,
+        .container-xxl {
+          max-width: 1500px;
+        }
+      }
+    }
   }
 }

@@ -1,0 +1,51 @@
+.book-trending {
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+.book-item {
+    border: 0.5px solid hsl(0, 0%, 80%);
+    box-shadow:  1px 1px 1px rgb(179, 174, 174);
+    display: inline-block;
+    width: 200px;
+    height: 330px;
+    padding: 10px;
+    margin: 5px; 
+    border-radius: 5px;
+    text-align: center;
+    overflow: hidden;
+    .btn-add-cart{
+        background-color: #ffc801;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 5px
+    }
+}
+
+.cursor{
+    cursor: pointer;
+}
+.img-book-item {
+    width: 130px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.book-name {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 20%);
+    font-size: 1.2em;
+    max-height: 3em; /* Giới hạn chiều cao văn bản nếu cần */
+    overflow: hidden; /* Ẩn nội dung nếu quá dài */
+    text-overflow: ellipsis;
+    white-space: nowrap;    
+}
+
+.book-price, .book-name-authors {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 30%);
+    font-size: 0.8em;
+}

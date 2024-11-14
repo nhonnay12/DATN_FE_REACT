@@ -1,0 +1,43 @@
+.img-preview{
+    width: 500px;
+    max-height: 600px;
+}
+.container-fluid{
+    display: flex;
+}
+.book-name-modal{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 20%);
+    font-size: 2.3em;
+    max-height: 2.5em; /* Giới hạn chiều cao văn bản nếu cần */
+    overflow: hidden;
+     /* Ẩn nội dung nếu quá dài */
+    text-overflow: ellipsis;
+    white-space: nowrap;   
+    color: #4181c3 !important;
+}
+.book-authors-modal{
+    .abc{
+        color: #4181c3 ;
+    }
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 15%);
+    font-size: 1.3em;  
+}
+.book-description-modal{
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 15%);
+    overflow: hidden;
+    font-size: 1.3em;  
+}
+.book-price-modal {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 10%);
+    font-size: 1.5em;
+}
