@@ -85,6 +85,27 @@
         color: black !important;
       }
     }
+    .cart-button {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      margin-right: 50px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: red;
+      color: white;
+      border-radius: 60%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
     .navbar-brand {
       gap: 5px;
       display: flex;

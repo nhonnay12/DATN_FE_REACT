@@ -1,0 +1,111 @@
+// .book-to-cart {
+//     padding: 20px;
+//     width: 100%;
+//     .cart-index {
+//       display: flex;
+//       // border: 2px solid black;
+//       padding: 10px;
+//       align-items: center; // Trung tâm hàng ngang
+
+//       .cart-item-img {
+//         margin-right: 20px; // Tạo khoảng cách giữa ảnh và phần mô tả
+//         .img-cart {
+//           width: 150px; // Giảm kích thước để phù hợp màn hình
+//           height: 200px;
+//           //object-fit: cover; // Đảm bảo ảnh hiển thị tốt
+//         }
+//         padding: 20px
+//       }
+
+//       .cart-item-details {
+//         display: flex;
+//         height: 100%;
+//         flex-direction: column; // Sắp xếp các mô tả theo cột
+//         justify-content: center; // Căn giữa theo chiều ngang
+//         gap: 10px; // Khoảng cách giữa các mục
+//       }
+//     }
+//   }
+
+.book-to-cart {
+  padding: 20px;
+  th,
+  td {
+    // border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    //vertical-align: top; // Đảm bảo các phần tử thẳng hàng theo chiều dọc
+  }
+  .cart-item-deatail {
+    align-items: center;
+  }
+  .img-cart {
+    width: 150px; // Kích thước ảnh nhỏ hơn để phù hợp với bảng
+    height: 200px;
+  }
+  .cart-item-img {
+    width: 350px;
+    display: flex;
+    justify-content: center;
+  }
+  .cart-book-nane {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 20%);
+    font-size: 1.2em;
+    max-height: 2em; /* Giới hạn chiều cao văn bản nếu cần */
+    overflow: hidden;
+    /* Ẩn nội dung nếu quá dài */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #4181c3 !important;
+  }
+  .cart-book-authors-name {
+    .abc {
+      color: #4181c3;
+    }
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 15%);
+    font-size: 0.9em;
+  }
+  .cart-price {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 10%);
+    font-size: 0.9em;
+    padding: 5px;
+  }
+  .cart-descriprion {
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: hsl(0, 0, 15%);
+    // overflow: hidden;
+    font-size: 0.9em;
+  }
+  .cart-title {
+    margin-bottom: 5px;
+    padding-left: 10px;
+  }
+  .cart-total-price {
+    border: 1px solid #dcdcdc; /* Sửa từ '1 solid black' thành '1px solid black' */
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px; /* Tùy chỉnh thêm khoảng cách bên trong */
+  }
+  .continue-checkout-cart {
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    button {
+      border-radius: 5px;
+      border: 1px solid #dcdcdc;
+      padding: 5px;
+    }
+    
+  }
+}

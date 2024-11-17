@@ -74,16 +74,17 @@ const getProductWithPaginate = (pageNumber, limit) => {
     `api/product/getProductPaging?pageNumber=${pageNumber}&pageSize=${limit}`
   );
 };
-const getProductWithPaginateCategory = (pageNumber, limit, category_id) => {
+const getProductWithPaginateCategory = (pageCountCategory, limit, category_id) => {
   return axios.get(
-    `api/product/getProductWithCategory?pageNumber=${pageNumber}&pageSize=${limit}&category_id=${category_id}`
+    `api/product/getProductWithCategory?pageNumber=${pageCountCategory}&pageSize=${limit}&category_id=${category_id}`
   );
 };
-const getProductWithPaginatePublisher = (pageNumber, limit, publisher_id) => {
+const getProductWithPaginatePublisher = (pageCountPublisher, limit, publisher_id) => {
   return axios.get(
-    `api/product/getProductWithPublisher?pageNumber=${pageNumber}&pageSize=${limit}&publisher_id=${publisher_id}`
+    `api/product/getProductWithPublisher?pageNumber=${pageCountPublisher}&pageSize=${limit}&publisher_id=${publisher_id}`
   );
 };
+
 export {
   postCreateUser,
   getAllUser,

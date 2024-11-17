@@ -77,7 +77,7 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Response body:", data);
+        // console.log("Response body:", data);
 
         // This code is a commitment between BE and FE
         if (data.code !== 200) {

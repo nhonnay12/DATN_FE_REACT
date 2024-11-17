@@ -16,6 +16,7 @@ const SideBarUser = ({
   listPublisher,
   handleClickCategory,
   handleClickPublisher,
+  setSelectedCategoryId,
 }) => {
   // const listCategory = async() =>{
   //   let res = await getAllCategory();
@@ -63,10 +64,7 @@ const SideBarUser = ({
             className="submenu-category"
           >
             {listCategory.map((category, index) => (
-              <MenuItem
-                key={index}
-                onClick={ () => handleClickCategory(category.id)}
-              >
+              <MenuItem key={index} onClick={() => handleClickCategory(category.id)}>
                 {category.name}
               </MenuItem>
             ))}
@@ -80,7 +78,7 @@ const SideBarUser = ({
             {listPublisher.map((item, index) => (
               <MenuItem
                 key={index}
-               onClick={() => handleClickPublisher(item.id)}
+                onClick={() => handleClickPublisher(item.id)}
               >
                 {item.name}
               </MenuItem>

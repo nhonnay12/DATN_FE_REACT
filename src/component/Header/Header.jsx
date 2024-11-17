@@ -3,9 +3,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { GiSpellBook } from "react-icons/gi";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FcSearch } from "react-icons/fc";
-const Header = () => {
+import { useData } from "../DataContext";
+const Header = (props) => {
+  const { cartCount } = useData();
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
   const handleLogin = () => {
@@ -14,7 +16,10 @@ const Header = () => {
   const handleSignup = () => {
     return navigate("/signup");
   };
-
+   console.log(cartCount);
+  const handleClickCart = () => {
+    navigate("/cart");
+  };
   return (
     <>
       <div className="header-top">
@@ -62,13 +67,13 @@ const Header = () => {
                   </button>
                 )}
                 {userRole && (
-                  <input
-                    typeof="text"
-                    placeholder="Tìm kiếm..."
-                    style={{ right: 100 }}
-                  ></input>
+                  <div className="cart-button" onClick={handleClickCart}>
+                    <HiOutlineShoppingCart size={25} />{" "}
+                    {cartCount > 0 && (
+                      <span className="cart-count">{cartCount}</span>
+                    )}{" "}
+                  </div>
                 )}
-
                 {/* <NavDropdown title="Settings" id="basic-nav-dropdown">
                 <NavDropdown.Item href="profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="login">Log in</NavDropdown.Item>

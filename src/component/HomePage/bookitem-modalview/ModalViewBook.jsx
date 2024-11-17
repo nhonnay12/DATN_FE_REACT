@@ -6,7 +6,7 @@ const ModalViewBook = (props) => {
   const handleClose = () => {
     props.setShow(false);
   };
-  console.log(props.productItem);
+  // console.log(props.productItem);
 
   const [previewImage, setPreviewImage] = useState("");
   useEffect(() => {
