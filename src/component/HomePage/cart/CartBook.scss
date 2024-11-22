@@ -29,21 +29,24 @@
 
 .book-to-cart {
   padding: 20px;
-  th,
-  td {
-    // border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-    //vertical-align: top; // Đảm bảo các phần tử thẳng hàng theo chiều dọc
-  }
-  .cart-item-deatail {
-    align-items: center;
-  }
+  
+  // th,
+  // td {
+  //   // border: 1px solid #ccc;
+  //   padding: 10px;
+  //   text-align: left;
+  //   //vertical-align: top; // Đảm bảo các phần tử thẳng hàng theo chiều dọc
+  // }
+  // .cart-item-detail {
+  //   align-items: center;
+  // }
   .img-cart {
-    width: 150px; // Kích thước ảnh nhỏ hơn để phù hợp với bảng
+    width: 130px; // Kích thước ảnh nhỏ hơn để phù hợp với bảng
     height: 200px;
+    object-fit: cover;
   }
   .cart-item-img {
+  
     width: 350px;
     display: flex;
     justify-content: center;
@@ -82,9 +85,30 @@
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     color: hsl(0, 0, 15%);
-    // overflow: hidden;
+    overflow: hidden;
     font-size: 0.9em;
   }
+  .cart-remove-item {
+    // border: 1px solid #ccc;
+    // padding:  5px;
+    justify-content: end;
+    display: flex;
+    // padding: 10px;
+    // justify-content: ;
+    button.remove-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+      padding: 5px 8px ;
+      border: 1px solid #555 !important;
+      border-radius: 3px;
+      &:hover {
+        background-color: rgb(118, 122, 122);
+      }
+    }
+  }
+
   .cart-title {
     margin-bottom: 5px;
     padding-left: 10px;
@@ -102,10 +126,17 @@
     display: flex;
     justify-content: space-between;
     button {
+      
       border-radius: 5px;
       border: 1px solid #dcdcdc;
-      padding: 5px;
+      padding: 5px 10px;
     }
-    
+    .btn-order{
+      background-color: #4181c3;
+      color: white;
+    }
+  }
+  .cart-item-detail{
+    width: 100%;
   }
 }

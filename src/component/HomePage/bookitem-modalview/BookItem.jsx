@@ -2,6 +2,7 @@ import "./BookItem.scss";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useData } from "../../DataContext";
 const CardItem = ({ product, handleClickViewBook, handleClickAddToCart }) => {
   const [previewImage, setPreviewImage] = useState("");
   useEffect(() => {
@@ -13,7 +14,6 @@ const CardItem = ({ product, handleClickViewBook, handleClickAddToCart }) => {
       }
     }
   }, [product]);
-  
   return (
     <div className="book-item">
       <img
@@ -32,9 +32,7 @@ const CardItem = ({ product, handleClickViewBook, handleClickAddToCart }) => {
         className="book-name-authors cursor"
         onClick={() => handleClickViewBook(product)}
       >
-        {product.authors && product.authors.length > 0
-          ? product.authors[0].name
-          : ""}
+        {product.author && product.author.name}
       </p>
       <p
         className="book-price cursor"
@@ -42,19 +40,23 @@ const CardItem = ({ product, handleClickViewBook, handleClickAddToCart }) => {
       >
         {product.price} VND
       </p>
-      <button className="btn-add-cart" onClick={() => handleClickAddToCart(product.id)}>Add to Cart</button>
+      <button
+        className="btn-add-cart"
+        onClick={() => handleClickAddToCart(product.id)}
+      >
+        Add to Cart
+      </button>
     </div>
   );
 };
 const BookItem = (props) => {
   const {
-    listProduct,
     handleClickViewBook,
     fetchListCategory,
     setCurrentPage,
     handleClickAddToCart,
   } = props;
-
+  const { listProduct, pageCount, setPageProductNumber } = useData();
   // Chia listProduct thành các nhóm 4 sản phẩm
   const groupedProducts = [];
   for (let i = 0; i < listProduct.length; i += 4) {
@@ -70,9 +72,8 @@ const BookItem = (props) => {
     if (props.publisher_id) {
       props.fetchProductPublisher(+e.selected + 1);
       props.setCategory_id(0);
-    }
-    else{
-      props.setPageProductNumber( +e.selected + 1)
+    } else {
+      setPageProductNumber(+e.selected + 1);
     }
   };
   return (
@@ -95,7 +96,7 @@ const BookItem = (props) => {
           onPageChange={handleChangeNumberPage} // handle
           pageRangeDisplayed={3}
           marginPagesDisplayed={2}
-          pageCount={props.pageCount}
+          pageCount={pageCount}
           previousLabel="< previous"
           pageClassName="page-item"
           nextLabel="next >"

@@ -6,9 +6,8 @@ import { toast } from "react-toastify";
 import { putUpdateUser } from "../../../services/apiServices";
 import _ from "lodash";
 const ViewUser = (props) => {
-  
   const { show, setShow, userUpdate, resetUpdate } = props;
-  
+
   const handleClose = () => {
     setShow(false);
     setEmail("");
@@ -36,14 +35,13 @@ const ViewUser = (props) => {
 
       if (userUpdate.images && userUpdate.images.length > 0) {
         const visibleImage = userUpdate.images.find((img) => !img.hidden); // tìm ảnh không bị ẩn
-       
-          if (visibleImage) {
+
+        if (visibleImage) {
           setPreviewImage(`data:image/jpeg;base64,${visibleImage.imageData}`);
         }
       }
     }
   }, [userUpdate]);
-
 
   const handlePreviewImage = (e) => {
     const file = e.target.files[0];
@@ -64,7 +62,6 @@ const ViewUser = (props) => {
     };
   }, [previewImage]);
 
-  
   return (
     <>
       <Modal
@@ -121,7 +118,7 @@ const ViewUser = (props) => {
                 <option value="ADMIN">ADMIN</option>
               </select>
             </div>
-            <div className="col-md-12">
+            <div className="col-md-12" style={{ width: "100%" }}>
               <label className="form-label label-upload" htmlFor="labelUpload">
                 <FcPlus />
                 Upload file image
@@ -146,7 +143,6 @@ const ViewUser = (props) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-        
         </Modal.Footer>
       </Modal>
     </>

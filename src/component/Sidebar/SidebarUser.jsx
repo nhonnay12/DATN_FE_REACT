@@ -17,6 +17,8 @@ const SideBarUser = ({
   handleClickCategory,
   handleClickPublisher,
   setSelectedCategoryId,
+  handleClickAuthors,
+  listAuthors,
 }) => {
   // const listCategory = async() =>{
   //   let res = await getAllCategory();
@@ -32,29 +34,6 @@ const SideBarUser = ({
         toggled={toggled}
         onToggle={handleToggleSidebar}
       >
-        {/* <div
-          style={{
-            padding: collapsed ? "20px" : "20px 55px",
-            textTransform: "uppercase",
-            fontWeight: "bold",
-            fontSize: 14,
-            letterSpacing: "1px",
-            // color: "#fff", // Thêm màu chữ trắng để dễ đọc trên nền tối
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            display: "flex", // Bố cục flexbox
-            alignItems: "center",
-          }}
-        >
-          <GiSpellBook size={"3em"} />
-          {!collapsed && (
-            <div >
-              Book Store
-            </div>
-          )}
-        </div> */}
-
         <Menu iconShape="circle">
           <SubMenu
             label="Thể loại"
@@ -79,6 +58,21 @@ const SideBarUser = ({
               <MenuItem
                 key={index}
                 onClick={() => handleClickPublisher(item.id)}
+              >
+                {item.name}
+              </MenuItem>
+            ))}
+          </SubMenu>
+          <SubMenu
+            label="Tác giả"
+            icon={<BsArrowThroughHeartFill />}
+            className="submenu-author"
+            defaultOpen={true}
+          >
+            {listAuthors.map((item, index) => (
+              <MenuItem
+                key={index}
+                onClick={() => handleClickAuthors(item.id)}
               >
                 {item.name}
               </MenuItem>

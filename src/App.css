@@ -45,23 +45,25 @@
     }
 
     .container {
-      .navbar-collapse {
-        background-color: #a5986d;
-        border-radius: 3px;
-        padding: 5px;
-      }
+      background-color: #a5986d;
+      border-radius: 3px;
+      padding: 5px;
+      /* .navbar-collapse {
+      } */
     }
     /* display: flex; */
     .btn-login {
-      border: 1px solid #ccc;
+      border: 1px solid #fff;
       border-radius: 5px;
       margin: 0 15px;
       padding: 0px 15px;
       height: 40px;
     }
-
+    .login-signup {
+      margin-right: 10px;
+    }
     .btn-signup {
-      border: 1px solid #ccc;
+      border: 1px solid #000;
       border-radius: 5px;
       margin-right: 8px;
       padding: 0px 15px;
@@ -89,9 +91,10 @@
       position: relative;
       display: inline-block;
       cursor: pointer;
-      margin-right: 50px;
+      margin-right: 15px;
     }
     .cart-count {
+      /* margin-right: 0px !important; */
       position: absolute;
       top: -5px;
       right: -5px;
@@ -105,7 +108,7 @@
       align-items: center;
       justify-content: center;
     }
-    
+
     .navbar-brand {
       gap: 5px;
       display: flex;

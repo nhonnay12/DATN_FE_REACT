@@ -1,8 +1,13 @@
-import index from "toastify";
 import { useData } from "../../DataContext";
 import { useEffect, useState } from "react";
 import "./CartBook.scss";
-const Item = ({ item, index }) => {
+import { useNavigate } from "react-router-dom";
+import { FaTrashCan } from "react-icons/fa6";
+import { deleteProductCart } from "../../../services/apiCartServices";
+import { toast } from "react-toastify";
+import { createOrder } from "../../../services/apiOrder";
+
+const Item = ({ item, index, handleClickRemove }) => {
   const [previewImage, setPreViewImage] = useState("");
   useEffect(() => {
     if (item.product.images && item.product.images[0].imageData) {
@@ -11,49 +16,96 @@ const Item = ({ item, index }) => {
       );
     }
   }, [item]);
+
   return (
     <tr>
       <td className="cart-item-img">
         <img src={previewImage} alt="Product" className="img-cart" />
       </td>
-      <td className="cart-item-deatail">
+      <td className="cart-item-detail">
         <div className="cart-book-nane">{item.product.name}</div>
         <div className="cart-book-authors-name">
-          By: <span className="abc">{item.product.authors[0]?.name}</span>
+          By: <span className="abc">{item.product.authors?.name}</span>
         </div>
-        <div className="cart-descriprion">
-          Description: {item.product.description}
+        <div className="cart-price">
+          <span style={{ fontSize: "1.2em", fontWeight: "bold" }}>Price:</span>
+          {item.product.price} VND
         </div>
-        <div className="cart-price">Price: {item.product.description}</div>
+        <div className="cart-remove-item">
+          <button
+            className="remove-item"
+            onClick={() => handleClickRemove(item.product.id)}
+          >
+            <FaTrashCan /> Remove
+          </button>
+        </div>
       </td>
     </tr>
   );
 };
-const CartBook = (props) => {
-  const { listProductToCart } = useData();
+
+const CartBook = () => {
+  const navigate = useNavigate();
+  const { listProductToCart, setCartCount, cartCount, fetchProductCart } =
+    useData();
+
+  const handleClickContinue = () => {
+    window.scrollTo(0, 0);
+    navigate("/");
+  };
+
+  const handleClickRemove = async (product_id) => {
+    try {
+      const response = await deleteProductCart(product_id);
+      if (response.code === 200) {
+        toast.success(response.result);
+        setCartCount(cartCount - 1);
+        fetchProductCart();
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      console.error("Error removing product from cart:", error);
+      toast.error("Có lỗi xảy ra khi xóa sản phẩm");
+    }
+  };
+
+  const handleClickOrder = () => {
+    navigate("/order");
+  };
+  console.log(listProductToCart);
+
   return (
     <div className="book-to-cart">
       <div className="cart-title">
-        <h2>Shopping Cart - {listProductToCart.totalProduct} items</h2>
+        <h2>Shopping Cart - {listProductToCart.totalProducts} items</h2>
       </div>
       <table className="table table-striped">
         <tbody>
+          {/* { listProductToCart.cart &&  listProductToCart.cart[0]?.product[0].id} */}
           {listProductToCart.cartItems &&
             listProductToCart.cartItems.map((item) => (
-              <Item key={item.id} item={item} />
+              <Item
+                key={item.id}
+                item={item}
+                handleClickRemove={handleClickRemove}
+              />
             ))}
         </tbody>
       </table>
       <div className="cart-total-price">
-        {" "}
         Total: {listProductToCart.totalPrice} VND
       </div>
-
       <div className="continue-checkout-cart">
-        <button className="btn-continue-shopping">Continue shopping</button>
-        <button className="btn-payment">Thanh toan</button>
+        <button className="btn-continue-shopping" onClick={handleClickContinue}>
+          Continue shopping
+        </button>
+        <button className="btn-order" onClick={handleClickOrder}>
+          Thanh toán
+        </button>
       </div>
     </div>
   );
 };
+
 export default CartBook;

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import {
+  getAllAuthors,
   getAllCategory,
   getAllPublisher,
   getProductWithPaginate,
+  getProductWithPaginateAuthors,
   getProductWithPaginateCategory,
   getProductWithPaginatePublisher,
 } from "../../../services/apiServices";
@@ -17,13 +19,15 @@ import { getToken } from "../../../services/localStorageService";
 import { useData } from "../../DataContext";
 const HomePage = (props) => {
   const [show, setShow] = useState(false);
-  const [pageCount, setPageCount] = useState(1);
+
   const [listCategory, setCategory] = useState([]);
   const [listPublisher, setPubliser] = useState([]);
+  const [listAuthors, setListAuthors] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
-  const [pageProductNumber, setPageProductNumber] = useState(1);
+  
+  const { setListProduct, setPageCount } = useData();
   const LIMIT_PRODUCT = 12;
-  const [listProduct, setListProduct] = useState([]);
+
   const [productItem, setProductItem] = useState({});
   const token = getToken();
   const navigator = useNavigate();
@@ -32,16 +36,17 @@ const HomePage = (props) => {
       try {
         // let res = await getAllCategory();
         // let res2 = await getAllPublisher();
-        const [category, publisher] = await Promise.all([
+        const [category, publisher, authors] = await Promise.all([
           getAllCategory(),
           getAllPublisher(),
+          getAllAuthors(),
         ]);
 
         if (category.code === 200 && publisher.code === 200) {
           // Kiểm tra code nếu cần
           setCategory(category.result);
           setPubliser(publisher.result);
-
+          setListAuthors(authors.result);
           // console.log(listCategory);
         } else {
           toast.error(category?.message || publisher?.message);
@@ -50,6 +55,7 @@ const HomePage = (props) => {
         toast.error(
           error.category?.message ||
             error.publisher?.message ||
+            error.authors?.message ||
             "Error call api"
         );
         console.error("Failed to fetch user list:", error);
@@ -58,36 +64,18 @@ const HomePage = (props) => {
     fetchListCategory();
   }, []);
 
-  useEffect(() => {
-    const fetchListProduct = async () => {
-      try {
-        let res = await getProductWithPaginate(
-          pageProductNumber,
-          LIMIT_PRODUCT
-        );
-        if (res.code === 200) {
-          setListProduct(res.result?.products);
-          setPageCount(res.result?.totalPages);
-          // console.log(">>>" , listProduct);
-        } else {
-          toast.error(res?.message);
-        }
-      } catch (error) {
-        toast.error(error.res?.message || "Error call api");
-        console.error("Failed to fetch user list:", error);
-      }
-    };
-    fetchListProduct();
-  }, [pageProductNumber]);
   const handleClickViewBook = (product) => {
     setShow(true);
     setProductItem(product);
   };
+
+  // get with category
   const [category_id, setCategory_id] = useState(0);
   const [pageCountCategory, setPageCountCategory] = useState(1);
   const handleClickCategory = (category_id) => {
     setCategory_id(category_id);
     setPublisher_id(null);
+    setAuthors_id(null);
     setCurrentPage(1);
     // setPageCountCategory(1);
   };
@@ -127,6 +115,7 @@ const HomePage = (props) => {
     setCurrentPage(1);
     setPublisher_id(publisher_id);
     setCategory_id(null);
+    setAuthors_id(null);
   };
 
   useEffect(() => {
@@ -155,8 +144,46 @@ const HomePage = (props) => {
       console.error("Failed to fetch user list:", error);
     }
   };
-  const { listProductToCart, setProductToCart, cartCount, setCartCount } =
-    useData();
+
+  const handleClickAuthors = (authors_id) => {
+    // setPageNumberPublisher(1);
+    setCurrentPage(1);
+    setAuthors_id(authors_id);
+    setCategory_id(null);
+    setPublisher_id(null);
+  };
+
+  const [authors_id, setAuthors_id] = useState(0);
+  useEffect(() => {
+    if (authors_id) {
+      // Kiểm tra tránh gọi API khi khởi tạo lần đầu
+      fetchProductAuthors(pageNumberAuthors, LIMIT_PRODUCT, authors_id);
+    }
+  }, [authors_id]);
+
+  // get authors
+  const [pageNumberAuthors, setPageNumberAuthors] = useState(1);
+  const fetchProductAuthors = async (pageNumberAuthors) => {
+    try {
+      let res = await getProductWithPaginateAuthors(
+        pageNumberAuthors,
+        LIMIT_PRODUCT,
+        authors_id
+      );
+      if (res.code === 200) {
+        setListProduct(res.result?.products);
+        setPageCount(res.result?.totalPages);
+        // console.log(">>>" , listProduct);
+      } else {
+        toast.error(res?.message);
+      }
+    } catch (error) {
+      toast.error(error.res?.message || "Error call api");
+      console.error("Failed to fetch user list:", error);
+    }
+  };
+
+  const { setCartCount } = useData();
   const handleClickAddToCart = async (product_id) => {
     // console.log(product_id);
     if (!token) {
@@ -164,22 +191,16 @@ const HomePage = (props) => {
       navigator("/login");
       return;
     }
-    console.log(token);
+    // console.log(token);
 
+    // add cart
     if (token) {
       try {
-        const response = await postAddToCart(product_id); // Giả sử đây là hàm gọi API thêm sản phẩm vào giỏ hàng
+        let response = await postAddToCart(product_id); // Giả sử đây là hàm gọi API thêm sản phẩm vào giỏ hàng
         if (response.code === 200) {
-          if (
-            response.result === "Sản phẩm đã được thêm vào giỏ hàng trước đó"
-          ) {
-            // Nếu sản phẩm đã tồn tại trong giỏ hàng, chỉ thông báo
-            toast.info(response.result); // Hiển thị thông báo thông tin cho người dùng
-          } else {
-            // Nếu thêm sản phẩm mới vào giỏ hàng thành công
-            setCartCount((prevCount) => prevCount + 1); // Tăng số lượng sản phẩm trong giỏ hàng
-            toast.success(response.result); // Hiển thị thông báo thành công
-          }
+          // Nếu thêm sản phẩm mới vào giỏ hàng thành công
+          setCartCount((prevCount) => prevCount + 1); // Tăng số lượng sản phẩm trong giỏ hàng
+          toast.success(response.message); // Hiển thị thông báo thành công
         } else {
           // Nếu có lỗi từ phía backend, hiển thị thông báo lỗi
           toast.error(response.message);
@@ -199,15 +220,15 @@ const HomePage = (props) => {
           listPublisher={listPublisher}
           handleClickCategory={handleClickCategory}
           handleClickPublisher={handleClickPublisher}
+          listAuthors={listAuthors}
+          handleClickAuthors={handleClickAuthors}
         />
       </div>
       <div className="homepage-content">
         <div className="list-book-item">
           <BookItem
             currentPage={currentPage}
-            listProduct={listProduct}
             handleClickViewBook={handleClickViewBook}
-            pageCount={pageCount}
             setCurrentPage={setCurrentPage}
             category_id={category_id}
             setCategory_id={setCategory_id}
@@ -216,7 +237,6 @@ const HomePage = (props) => {
             fetchProductPublisher={fetchProductPublisher}
             publisher_id={publisher_id}
             setPublisher_id={setPublisher_id}
-            setPageProductNumber={setPageProductNumber}
             handleClickAddToCart={handleClickAddToCart}
           />
         </div>

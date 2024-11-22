@@ -1,7 +1,7 @@
 import ReactPaginate from "react-paginate";
 
 const TableUserPaginate = (props) => {
-  const { listUser, pageSize } = props;
+  const { listUser, pageCount } = props;
   const handlePageClick = (event) => {
     props.setCurrentPage(+event.selected + 1);
     props.fetchListUserWithPaginate(+event.selected + 1);
@@ -15,6 +15,7 @@ const TableUserPaginate = (props) => {
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">Role</th>
+            <th scope="col">Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -28,6 +29,7 @@ const TableUserPaginate = (props) => {
                   <td>{item.username}</td>
                   <td>{item.email}</td>
                   <td>{item.roles[0]?.name}</td>
+                  <td>{item.status}</td>
                   <td>
                     <button
                       className="btn btn-secondary"
@@ -64,7 +66,7 @@ const TableUserPaginate = (props) => {
           onPageChange={handlePageClick}
           pageRangeDisplayed={3}
           marginPagesDisplayed={2}
-          pageCount={pageSize}
+          pageCount={pageCount}
           previousLabel="< previous"
           pageClassName="page-item"
           nextLabel="next >"

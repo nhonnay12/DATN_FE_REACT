@@ -10,7 +10,13 @@ import React from "react";
 function Footer() {
   return (
     <footer
-      style={{ color: "#000", padding: "20px", borderTop: "5px solid black" }}
+      style={{
+        color: "#000",
+        padding: "20px",
+        borderTop: "5px solid black",
+        backgroundColor: "#a5986d",
+        marginTop: "20px",
+      }}
     >
       <div
         style={{

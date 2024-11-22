@@ -1,14 +1,14 @@
 import axios from "../utils/AxiosCutomize";
 import { getToken } from "./localStorageService";
 
-const postCreateUser = (email, password, username, image, enabled, roles) => {
+const postCreateUser = (email, password, username, image, status, roles) => {
   // call api
   const data = new FormData();
   data.append("email", email);
   data.append("password", password);
   data.append("username", username);
   data.append("userImage", image);
-  data.append("enabled", enabled);
+  data.append("status", status);
   data.append("roles", roles);
 
   return axios.post("api/user", data);
@@ -32,12 +32,13 @@ const getAllUser = () => {
   };
   return axios.get("api/user/getUserPaging", config);
 };
-const putUpdateUser = (username, image, role, id) => {
+const putUpdateUser = (username, image, role, status, id) => {
   // call api
   const data = new FormData();
   data.append("username", username);
   data.append("userImage", image);
   data.append("role", role);
+  data.append("status", status);
   data.append("id", id);
   return axios.put("api/user", data);
 };
@@ -59,6 +60,14 @@ const getAllCategory = () => {
   //   },
   // };
   return axios.get("/api/category/getall");
+};
+const getAllAuthors = () => {
+  // const config = {
+  //   headers: {
+  //     Authorization: `Bearer ${getToken()}`, // Assuming Bearer token
+  //   },
+  // };
+  return axios.get("/api/author");
 };
 const getAllPublisher = () => {
   // const config = {
@@ -84,6 +93,11 @@ const getProductWithPaginatePublisher = (pageCountPublisher, limit, publisher_id
     `api/product/getProductWithPublisher?pageNumber=${pageCountPublisher}&pageSize=${limit}&publisher_id=${publisher_id}`
   );
 };
+const getProductWithPaginateAuthors = (pageNumberAuthors, limit, author_id) => {
+  return axios.get(
+    `api/product/getProductWithAuthors?pageNumber=${pageNumberAuthors}&pageSize=${limit}&author_id=${author_id}`
+  );
+};
 
 export {
   postCreateUser,
@@ -96,4 +110,6 @@ export {
   getProductWithPaginate,
   getProductWithPaginateCategory,
   getProductWithPaginatePublisher,
+  getProductWithPaginateAuthors,
+  getAllAuthors,
 };

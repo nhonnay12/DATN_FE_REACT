@@ -24,6 +24,7 @@ const ModalUpdateUser = (props) => {
   const [image, setImage] = useState("");
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("USER");
+  const [status, setStatus] = useState("");
   const [previewImage, setPreviewImage] = useState("");
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const ModalUpdateUser = (props) => {
       setUsername(dataUser.username || "");
       setRole(dataUser.roles[0]?.name || "");
       setImage(null); // reset image khi dataUser thay đổi
-
+      setStatus(dataUser.status || "");
       if (dataUser.images && dataUser.images.length > 0) {
         const visibleImage = dataUser.images.find((img) => !img.hidden); // tìm ảnh không bị ẩn
 
@@ -71,6 +72,7 @@ const ModalUpdateUser = (props) => {
     const isUserDataChanged =
       username !== dataUser.username ||
       role !== (dataUser.roles[0]?.name || "") ||
+      status !== (dataUser.status || "") ||
       image !== null; // Chỉ cần hình ảnh thay đổi là cũng coi là có thay đổi
 
     if (!isUserDataChanged) {
@@ -79,7 +81,7 @@ const ModalUpdateUser = (props) => {
       return;
     }
 
-    let res = await putUpdateUser(username, image, role, dataUser.id);
+    let res = await putUpdateUser(username, image, role, status, dataUser.id);
 
     // console.log(">>> result: ", res);
 
@@ -144,6 +146,17 @@ const ModalUpdateUser = (props) => {
               >
                 <option value="USER">USER</option>
                 <option value="ADMIN">ADMIN</option>
+              </select>
+            </div>
+            <div className="col-md-2">
+              <label className="form-label">Status</label>
+              <select
+                className="form-select"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
               </select>
             </div>
             <div className="col-md-12">

@@ -11,7 +11,7 @@ import TableUserPaginate from "./TableUserPaginate";
 
 const ManageUser = (props) => {
   const LIMIT_PAGE = 8;
-  const [pageSize, setPageSize] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
   const [showModalUpdate, setShowUpdateModal] = useState(false);
   const [showModalViewUser, setShowViewUser] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -46,7 +46,7 @@ const ManageUser = (props) => {
       if (res.code === 200) {
         // Kiểm tra code nếu cần
         setListUser(res.result.users);
-        setPageSize(res.result.totalPages);
+        setPageCount(res.result.totalPages);
       } else {
         toast.error(res?.message);
       }
@@ -74,6 +74,17 @@ const ManageUser = (props) => {
   };
   return (
     <div className="manage-user-container">
+      <div
+        className="title"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          fontSize: "1.8em",
+          fontWeight: "bold",
+        }}
+      >
+        Quản lí người dùng 
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-secondary" onClick={handleShowModal}>
@@ -88,7 +99,7 @@ const ManageUser = (props) => {
             handleViewUser={handleViewUser}
             handleClickDeleteUser={handleClickDeleteUser}
             fetchListUserWithPaginate={fetchListUserWithPaginate}
-            pageSize={pageSize}
+            pageCount={pageCount}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />

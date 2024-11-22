@@ -1,0 +1,55 @@
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+  text-align: center;
+  border: 1px solid #ddd;
+
+  th,
+  td {
+    padding: 10px;
+    //border: 1px solid #ddd; /* Thêm viền ô */
+    white-space: nowrap; /* Không xuống dòng nội dung */
+  }
+
+  th {
+    background-color: #f4f4f4; /* Màu nền tiêu đề */
+    font-weight: bold;
+  }
+
+  .description {
+    text-align: left; /* Căn trái cột mô tả */
+    max-width: 200px; /* Giới hạn chiều rộng */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Hiển thị ... nếu nội dung quá dài */
+    white-space: nowrap;
+  }
+
+  .actions {
+    button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-warning {
+      background-color: #f0ad4e;
+      color: white;
+
+      &:hover {
+        background-color: #ec971f;
+      }
+    }
+
+    .btn-danger {
+      background-color: #d9534f;
+      color: white;
+
+      &:hover {
+        background-color: #c9302c;
+      }
+    }
+  }
+}

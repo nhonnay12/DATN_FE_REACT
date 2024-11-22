@@ -5,9 +5,10 @@ import { BsArrowThroughHeartFill } from "react-icons/bs";
 import sidebarBg from "../../assets/bg2.jpg";
 import { GiSpellBook } from "react-icons/gi";
 import { MdDashboard } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
+  const navigate = useNavigate();
   return (
     <>
       <Sidebar
@@ -31,39 +32,24 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
             display: "flex", // Bố cục flexbox
             alignItems: "center",
           }}
+          
         >
-          <GiSpellBook size={"3em"} />
-          {!collapsed && (
-            <div>
-              Book Store
-            </div>
-          )}
+          <GiSpellBook size={"3em"} onClick={() => navigate("/")}/>
+          {!collapsed && <div onClick={() => navigate("/")}>Book Store</div>}
         </div>
 
         <Menu iconShape="circle">
-          <MenuItem
-            icon={<MdDashboard />}
-            // suffix={<span className="badge red">Main</span>}
-            component={<Link to="/admin" />}
-          >
-            Dashboard
-          </MenuItem>
-          <MenuItem icon={<FaGem />}>Components</MenuItem>
           <SubMenu
             label="Manager"
             suffix={<span className="badge yellow">3</span>}
             icon={<FaRegLaughWink />}
+            defaultOpen="true"
           >
             <MenuItem component={<Link to="/admin/manage-users" />}>
-              Quản lí user
+              Quản lí người dùng
             </MenuItem>
-            <MenuItem>Quản lí admin</MenuItem>
-            <MenuItem>Quản lí truyện </MenuItem>
-          </SubMenu>
-          <SubMenu label="Quản lí Menu" icon={<BsArrowThroughHeartFill />}>
-            <MenuItem>Menu 1</MenuItem>
-            <MenuItem>Menu 2</MenuItem>
-            <MenuItem>Menu 3</MenuItem>
+            <MenuItem component={<Link to="/admin" />}>Quản lí truyện</MenuItem>
+            <MenuItem>Quản lí </MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>

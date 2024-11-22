@@ -23,7 +23,6 @@ const ModalCreateUser = (props) => {
   const [username, setUsername] = useState("");
   const [roles, setRole] = useState("USER");
   const [previewImage, setPreviewImage] = useState(null);
-  const [enabled, setEnable] = useState(true);
 
   const handlePreviewImage = (e) => {
     const file = e.target.files[0];
@@ -68,13 +67,13 @@ const ModalCreateUser = (props) => {
       toast.error("Email không hợp lệ!!!");
       return;
     }
-
+    const status = "ACTIVE";
     let res = await postCreateUser(
       email,
       password,
       username,
       image,
-      enabled,
+      status,
       roles
     );
     console.log(">>> result: ", res);
@@ -88,23 +87,11 @@ const ModalCreateUser = (props) => {
     } else {
       toast.error(res.message);
     }
-    // thay vi dung trycatch co erceptorthe dung int can thiet vao response roi lay ma loi the hien ra man hinh
-    // try {
-    // } catch (error) {
-    //   if (error.response && error.response.data) {
-    //     // Hiển thị thông báo lỗi từ backend
-    //     const errorMessage = error.response.data.message || "Đã xảy ra lỗi!";
-    //     toast.error(errorMessage);
-    //   } else {
-    //     toast.error("Đã xảy ra lỗi không xác định!");
-    //   }
-    // }
+  
   };
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Add new user 2
-      </Button> */}
+    
 
       <Modal
         show={show}

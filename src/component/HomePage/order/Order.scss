@@ -1,0 +1,18 @@
+.method-payment {
+  cursor: pointer;
+  &:hover {
+    background-color: #dcdcdc;
+  }
+}
+.div-btn-payment {
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+  .btn-request-payment {
+    background-color: #4181c3;
+    color: white;
+    padding: 8px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+  }
+}
