@@ -69,6 +69,7 @@ const User = (props) => {
         status: user.status !== originalUser.status ? user.status : null,
         file: image, // Nếu có file thì gửi file
         phone: user.phone !== originalUser.phone ? user.phone : null,
+        email: user.email !== originalUser.email ? user.email : null,
       };
 
       const res = await updateUserInfo(user.id ,updates); // Gọi API cập nhật
@@ -173,7 +174,7 @@ const User = (props) => {
         <p>
           Email:
           <input
-          disabled
+         
             type="email"
             className="form-control"
             value={user.email}

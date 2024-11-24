@@ -30,4 +30,10 @@ const deleteProductCart = (product_id) => {
   return axios.put(`/api/cart/remove`, data, config);
 };
 
-export { postAddToCart, getAllCart, deleteProductCart };
+
+
+export {
+  postAddToCart,
+  getAllCart,
+  deleteProductCart,
+};

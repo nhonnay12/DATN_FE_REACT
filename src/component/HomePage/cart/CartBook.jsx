@@ -25,11 +25,12 @@ const Item = ({ item, index, handleClickRemove }) => {
       <td className="cart-item-detail">
         <div className="cart-book-nane">{item.product.name}</div>
         <div className="cart-book-authors-name">
-          By: <span className="abc">{item.product.authors?.name}</span>
+          By: <span className="abc">{item.product.author?.name}</span>
         </div>
+        <div className="cart-descriprion">{item.product.description}</div>
         <div className="cart-price">
           <span style={{ fontSize: "1.2em", fontWeight: "bold" }}>Price:</span>
-          {item.product.price} VND
+          <span style={{ padding: "2px 3px" }}> {item.product.price} VND</span>
         </div>
         <div className="cart-remove-item">
           <button
@@ -78,23 +79,36 @@ const CartBook = () => {
   return (
     <div className="book-to-cart">
       <div className="cart-title">
-        <h2>Shopping Cart - {listProductToCart.totalProducts} items</h2>
+        <h2>
+          {" "}
+          Shopping Cart -{" "}
+          {listProductToCart?.totalProducts
+            ? `${listProductToCart.totalProducts} items`
+            : "Loading..."}
+        </h2>
       </div>
       <table className="table table-striped">
         <tbody>
-          {/* { listProductToCart.cart &&  listProductToCart.cart[0]?.product[0].id} */}
-          {listProductToCart.cartItems &&
+          {listProductToCart?.cartItems &&
+          listProductToCart.cartItems.length > 0 ? (
             listProductToCart.cartItems.map((item) => (
               <Item
                 key={item.id}
                 item={item}
                 handleClickRemove={handleClickRemove}
               />
-            ))}
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                Giỏ hàng của bạn đang trống.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className="cart-total-price">
-        Total: {listProductToCart.totalPrice} VND
+        Total: {listProductToCart?.totalPrice} VND
       </div>
       <div className="continue-checkout-cart">
         <button className="btn-continue-shopping" onClick={handleClickContinue}>

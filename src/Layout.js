@@ -24,8 +24,8 @@ const Layout = () => {
           <Route index element={<HomePage />}></Route>
           <Route path="profile" element={<User />}></Route>
           <Route path="cart" element={<CartBook />}></Route>
-          <Route path="order" element={<Order />}>
-          </Route>
+          <Route path="order" element={<Order />}></Route>
+          <Route path="payment-callback" element={<PaymentCallback />}></Route>
         </Route>
 
         <Route path="/login" element={<Login />}></Route>

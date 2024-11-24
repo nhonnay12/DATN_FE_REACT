@@ -29,7 +29,7 @@
 
 .book-to-cart {
   padding: 20px;
-  
+
   // th,
   // td {
   //   // border: 1px solid #ccc;
@@ -46,7 +46,6 @@
     object-fit: cover;
   }
   .cart-item-img {
-  
     width: 350px;
     display: flex;
     justify-content: center;
@@ -62,32 +61,61 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #4181c3 !important;
+    justify-content: start;
+    display: flex;
   }
   .cart-book-authors-name {
     .abc {
       color: #4181c3;
+      margin-left: 5px;
     }
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     color: hsl(0, 0, 15%);
     font-size: 0.9em;
+    justify-content: start;
+    display: flex;
   }
+
   .cart-price {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     color: hsl(0, 0, 10%);
     font-size: 0.9em;
     padding: 5px;
+    justify-content: start;
+    display: flex;
+    align-items: center;
   }
+
+  .cart-price span {
+    margin-right: 5px; /* Để có khoảng cách giữa các phần tử */
+  }
+
+  .cart-price .price {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .cart-price .currency {
+    padding: 2px 3px;
+  }
+
   .cart-descriprion {
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     color: hsl(0, 0, 15%);
-    overflow: hidden;
     font-size: 0.9em;
+    justify-content: start;
+    display: flex;
+    overflow: hidden; /* Ẩn nội dung tràn ra */
+    white-space: nowrap; /* Không cho phép dòng văn bản xuống dòng */
+    text-overflow: ellipsis; /* Thêm dấu ba chấm nếu văn bản quá dài */
+    // max-height: 200px;
   }
+
   .cart-remove-item {
     // border: 1px solid #ccc;
     // padding:  5px;
@@ -100,7 +128,7 @@
       justify-content: center;
       align-items: center;
       gap: 2px;
-      padding: 5px 8px ;
+      padding: 5px 8px;
       border: 1px solid #555 !important;
       border-radius: 3px;
       &:hover {
@@ -126,17 +154,17 @@
     display: flex;
     justify-content: space-between;
     button {
-      
       border-radius: 5px;
       border: 1px solid #dcdcdc;
       padding: 5px 10px;
     }
-    .btn-order{
+    .btn-order {
       background-color: #4181c3;
       color: white;
     }
   }
-  .cart-item-detail{
+  .cart-item-detail {
     width: 100%;
+    max-width: 600px !important;
   }
 }

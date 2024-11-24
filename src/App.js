@@ -8,7 +8,6 @@ import { getToken } from "./services/localStorageService";
 import { DataProvider } from "./component/DataContext";
 import Footer from "./component/Footer/Footer";
 const App = () => {
-  
   return (
     <DataProvider >
     <div className="app-container">

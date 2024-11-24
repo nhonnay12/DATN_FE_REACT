@@ -23,7 +23,7 @@ export const DataProvider = ({ children }) => {
       return;
     }
     try {
-      const res = await getAllCart(token); // Đảm bảo rằng API được gọi với token
+      const res = await getAllCart(); // Đảm bảo rằng API được gọi với token
       // console.log("API response:", res); // Log phản hồi từ API
       if (res) {
         setProductToCart(res.result);
@@ -64,7 +64,6 @@ export const DataProvider = ({ children }) => {
     };
     fetchListProduct();
   }, [pageProductNumber]);
-
   return (
     <DataContext.Provider
       value={{
