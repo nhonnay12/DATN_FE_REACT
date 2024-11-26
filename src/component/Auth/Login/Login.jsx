@@ -85,11 +85,13 @@ const Login = () => {
         }
 
         setToken(data.result?.token);
+
         if(data.result?.token){
           const payload = JSON.parse(atob(data.result?.token.split('.')[1]));
           const userRole = payload.role; // Lấy role từ token
           localStorage.setItem('userRole', userRole);
         }
+        //log 
         navigate("/");
       })
       .catch((error) => {
