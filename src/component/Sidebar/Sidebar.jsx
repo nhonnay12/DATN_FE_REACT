@@ -49,7 +49,10 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
               Quản lí người dùng
             </MenuItem>
             <MenuItem component={<Link to="/admin" />}>Quản lí truyện</MenuItem>
-            <MenuItem>Quản lí </MenuItem>
+            <MenuItem component={<Link to="/admin/manage-order" />}>Quản lí đơn hàng</MenuItem>
+            <MenuItem component={<Link to="/admin/manage-category" />}>Quản lí thể loại</MenuItem>
+            <MenuItem component={<Link to="/admin/manage-author" />}>Quản lí tác giả</MenuItem>
+            <MenuItem component={<Link to="/admin/manage-publisher" />}>Quản lí nhà cung cấp</MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>

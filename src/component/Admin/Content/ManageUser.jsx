@@ -87,7 +87,7 @@ const ManageUser = (props) => {
       </div>
       <div className="user-content">
         <div className="btn-add-new">
-          <button className="btn btn-secondary" onClick={handleShowModal}>
+          <button className="btn btn-secondary" onClick={handleShowModal} style={{    backgroundColor: "rgb(0, 123, 255)"}}>
             <BiSolidUserPlus />
             Add new user
           </button>

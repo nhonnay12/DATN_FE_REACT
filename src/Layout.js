@@ -16,6 +16,10 @@ import PaymentCallback from "./component/HomePage/PaymentCallback.jsx/PaymentCal
 import ManagerProduct from "./component/Admin/Content/PRODUCT/ManageProduct.jsx";
 import ManageProduct from "./component/Admin/Content/PRODUCT/ManageProduct.jsx";
 import OrderHistory from "./component/HomePage/order/OrderHistory.jsx";
+import ManageOrder from "./component/Admin/Content/MANEGE ORDER/ManageOrder.jsx";
+import CategoryManagement from "./component/Admin/Content/CATEGORY/ManageCategory.jsx";
+import AuthorManagement from "./component/Admin/Content/Author/AuthorManagement.jsx";
+import PublisherManagement from "./component/Admin/Content/Publisher/PublisherManagement.jsx";
 
 const Layout = () => {
   return (
@@ -35,6 +39,10 @@ const Layout = () => {
         <Route path="/admin" element={<Admin />}>
           <Route index element={<ManageProduct />}></Route>
           <Route path="manage-users" element={<ManageUser />}></Route>
+          <Route path="manage-order" element={<ManageOrder />}></Route>
+          <Route path="manage-category" element={<CategoryManagement />}></Route>
+          <Route path="manage-author" element={<AuthorManagement />}></Route>
+          <Route path="manage-publisher" element={<PublisherManagement />}></Route>
           {/* <Route path="manage-users" element={<ManageUser />}></Route> */}
         </Route>
       </Routes>

@@ -13,10 +13,11 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import { getToken } from "../../../services/localStorageService";
-import { getHistotyOrder } from "../../../services/apiOrder";
 
-const OrderHistory = () => {
+import { getallListOrder } from "../../../../services/apiOrder";
+import { getToken } from "../../../../services/localStorageService";
+
+const ManageOrder = () => {
   const [orders, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -25,7 +26,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchOrderHistory = async () => {
       try {
-        const response = await getHistotyOrder();
+        const response = await getallListOrder();
         if (response.code === 200) {
           setOrder(response?.result);
         } else {
@@ -93,7 +94,13 @@ const OrderHistory = () => {
                   <strong>Phương thức thanh toán</strong>
                 </TableCell>
                 <TableCell>
+                  <strong>Mã hóa đơn</strong>
+                </TableCell>
+                <TableCell>
                   <strong>Tổng tiền</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Trạng thái</strong>
                 </TableCell>
                 <TableCell>
                   <strong>Hành động</strong>
@@ -105,18 +112,20 @@ const OrderHistory = () => {
                 <React.Fragment key={index}>
                   <TableRow>
                     <TableCell>
-                      {index+1}
+                      {index + 1}
                     </TableCell>
                     <TableCell>
                       {new Date(order.orderDate).toLocaleString()}
                     </TableCell>
                     <TableCell>{order.paymentMethod}</TableCell>
+                    <TableCell>{order.maDonHang}</TableCell>
                     <TableCell>
                       {order.totalOrderPrice.toLocaleString("vi-VN", {
                         style: "currency",
                         currency: "VND",
                       })}
                     </TableCell>
+                    <TableCell>{order.orderStatus}</TableCell>
                     <TableCell>
                       <Button
                         variant="outlined"
@@ -183,17 +192,6 @@ const OrderHistory = () => {
                   )}
                 </React.Fragment>
               ))}
-              <TableRow>
-                <TableCell colSpan={6} align="right">
-                  <Typography variant="h6">
-                    Tổng tiền sách đã mua:{" "}
-                    {totalAmount.toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </Typography>
-                </TableCell>
-              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -202,4 +200,4 @@ const OrderHistory = () => {
   );
 };
 
-export default OrderHistory;
+export default ManageOrder;

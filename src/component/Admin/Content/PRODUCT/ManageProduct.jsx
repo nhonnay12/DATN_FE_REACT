@@ -170,6 +170,8 @@ const ManageProduct = () => {
                 padding: "8px 12px",
                 borderRadius: "5px",
                 border: "1px solid #dcdcdc",
+                backgroundColor: "rgb(0, 123, 255)",
+                marginRight:"10px",
               }}
             >
               Add Product

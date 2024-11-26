@@ -62,10 +62,22 @@ const getHistotyOrder = () => {
   // Truyền tham số qua URL thay vì dùng FormData
   return axios.get("/api/v1/order/history", config);
 };
+const getallListOrder = () => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${getToken()}`, // Assuming Bearer token
+      //"Content-Type": "application/json", // Dùng application/json thay vì multipart/form-data
+    },
+  };
+
+  // Truyền tham số qua URL thay vì dùng FormData
+  return axios.get("/api/v1/order/manage", config);
+};
 
 export {
   createOrder,
   updateStatusOrder,
   updateStatusOrderPaymentSuccess,
   getHistotyOrder,
+  getallListOrder,
 };
