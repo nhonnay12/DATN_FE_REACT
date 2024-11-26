@@ -38,7 +38,7 @@ const CardItem = ({ product, handleClickViewBook, handleClickAddToCart }) => {
         className="book-price cursor"
         onClick={() => handleClickViewBook(product)}
       >
-        {product.price} VND
+        {product.price} đ
       </p>
       <button
         className="btn-add-cart"

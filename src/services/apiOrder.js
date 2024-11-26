@@ -55,12 +55,12 @@ const getHistotyOrder = () => {
   const config = {
     headers: {
       Authorization: `Bearer ${getToken()}`, // Assuming Bearer token
-      "Content-Type": "application/json", // Dùng application/json thay vì multipart/form-data
+      //"Content-Type": "application/json", // Dùng application/json thay vì multipart/form-data
     },
   };
 
   // Truyền tham số qua URL thay vì dùng FormData
-  return axios.get("/api/v1/order", {}, config);
+  return axios.get("/api/v1/order/history", config);
 };
 
 export {

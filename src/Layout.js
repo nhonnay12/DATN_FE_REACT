@@ -15,6 +15,7 @@ import Order from "./component/HomePage/order/Order.jsx";
 import PaymentCallback from "./component/HomePage/PaymentCallback.jsx/PaymentCallback.jsx";
 import ManagerProduct from "./component/Admin/Content/PRODUCT/ManageProduct.jsx";
 import ManageProduct from "./component/Admin/Content/PRODUCT/ManageProduct.jsx";
+import OrderHistory from "./component/HomePage/order/OrderHistory.jsx";
 
 const Layout = () => {
   return (
@@ -26,6 +27,7 @@ const Layout = () => {
           <Route path="cart" element={<CartBook />}></Route>
           <Route path="order" element={<Order />}></Route>
           <Route path="payment-callback" element={<PaymentCallback />}></Route>
+          <Route path="orderhistory" element={<OrderHistory />}></Route>
         </Route>
 
         <Route path="/login" element={<Login />}></Route>

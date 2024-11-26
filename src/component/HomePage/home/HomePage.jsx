@@ -196,19 +196,19 @@ const HomePage = (props) => {
     // add cart
     if (token) {
       try {
-        let response = await postAddToCart(product_id); // Giả sử đây là hàm gọi API thêm sản phẩm vào giỏ hàng
+        let response = await postAddToCart(product_id);
+        console.log("API response:", response);
         if (response.code === 200) {
-          // Nếu thêm sản phẩm mới vào giỏ hàng thành công
-          setCartCount((prevCount) => prevCount + 1); // Tăng số lượng sản phẩm trong giỏ hàng
-          toast.success(response.message); // Hiển thị thông báo thành công
+            setCartCount((prevCount) => prevCount + 1);
+            toast.success(response.message);
         } else {
-          // Nếu có lỗi từ phía backend, hiển thị thông báo lỗi
-          toast.error(response.message);
+            toast.error(response.message);
         }
-      } catch (error) {
-        console.error("Error adding product to cart:", error);
+    } catch (error) {
+        console.error("Error in try-catch:", error);
         toast.error("Có lỗi xảy ra khi thêm vào giỏ hàng");
-      }
+    }
+    
     }
   };
   return (

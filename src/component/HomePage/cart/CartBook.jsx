@@ -54,7 +54,6 @@ const CartBook = () => {
     window.scrollTo(0, 0);
     navigate("/");
   };
-
   const handleClickRemove = async (product_id) => {
     try {
       const response = await deleteProductCart(product_id);

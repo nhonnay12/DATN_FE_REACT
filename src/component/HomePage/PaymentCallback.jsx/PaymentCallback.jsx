@@ -47,47 +47,58 @@ const PaymentCallback = () => {
 
       const callApis = async () => {
         try {
-          const cartItemRes = await updateStatusCartItemPaymentSuccess(
-            orderId,
-            statusCartItem
-          );
-          if (cartItemRes.code === 200) {
-            console.log("API 1 - Cập nhật trạng thái cart item thành công!");
+          // Gọi API cập nhật trạng thái cart trước
+          const cartRes = await updateStatusCartPaymentSuccess(orderId, status);
+          if (cartRes.code === 200) {
+            console.log("API 1 - Cập nhật trạng thái cart thành công!");
+            const newCartId = cartRes.result?.id;
+            setCartId(newCartId); // Lưu cartId
+
+            // Tiếp theo, gọi API cập nhật trạng thái cart item với cartId
+            const cartItemRes = await updateStatusCartItemPaymentSuccess(
+              newCartId,
+              statusCartItem
+            );
+            if (cartItemRes.code === 200) {
+              console.log("API 2 - Cập nhật trạng thái cart item thành công!");
+            } else {
+              toast.error("Có lỗi xảy ra khi cập nhật cart item.");
+              return;
+            }
+
+            // Gọi API cập nhật trạng thái order
+            const orderRes = await updateStatusOrderPaymentSuccess(
+              orderId,
+              vnp_TxnRef,
+              transactionId
+            );
+            if (orderRes.code === 200) {
+              console.log("API 3 - Cập nhật trạng thái order thành công!");
+              toast.success("Thanh toán thành công!");
+            } else {
+              toast.error("Có lỗi xảy ra khi cập nhật order.");
+              return;
+            }
+
+            // Gửi email thông báo
+            const emailRes = await sendEmailProduct(newCartId);
+            setEmail(emailRes.result?.email);
+
+            // Xóa orderId khỏi localStorage
+            localStorage.removeItem("orderId");
           } else {
-            toast.error("Có lỗi xảy ra khi cập nhật cart item.");
+            toast.error("Có lỗi xảy ra khi cập nhật cart.");
             return;
-          }
-
-          const orderRes = await updateStatusOrderPaymentSuccess(
-            orderId,
-            vnp_TxnRef,
-            transactionId
-          );
-          if (orderRes.code === 200) {
-            console.log("API 2 - Cập nhật trạng thái order thành công!");
-
-            toast.success("Thanh toán thành công!");
-          } else {
-            toast.error("Có lỗi xảy ra khi cập nhật order.");
           }
         } catch (error) {
           console.error("Lỗi khi gọi API:", error);
           toast.error("Lỗi khi gọi API.");
         }
 
-        const cartRes = await updateStatusCartPaymentSuccess(orderId, status);
-        if (cartRes.code === 200) {
-          console.log("API 3 - Cập nhật trạng thái cart thành công!");
-          const newCartId = cartRes.result?.id;
-          setCartId(newCartId); // Lưu cartId
-          const res = await sendEmailProduct(newCartId);
-          setEmail(res.result?.email);
-
-          localStorage.removeItem("orderId");
-        } else {
-          toast.error("Có lỗi xảy ra khi cập nhật cart.");
-          return;
-        }
+        // Reset cart count và làm mới danh sách sản phẩm trong giỏ
+        const newCartCount = 0;
+        setCartCount(newCartCount);
+        fetchProductCart();
       };
 
       callApis();
@@ -188,7 +199,7 @@ const PaymentCallback = () => {
           display: "flex", // Dùng flex để căn chỉnh các phần tử bên trong
           alignItems: "center", // Căn giữa theo chiều dọc
           justifyContent: "center", // Căn giữa theo chiều ngang
-          gap: "10px", // Khoảng cách giữa các phần tử
+        // Khoảng cách giữa các phần tử
           backgroundColor: "white", // Tùy chọn để thêm nền trắng cho dễ nhìn
           padding: "10px", // Thêm một chút padding để tạo không gian
           borderRadius: "5px", // Thêm border-radius để làm góc mềm mại
@@ -199,10 +210,11 @@ const PaymentCallback = () => {
         Nếu bạn chưa nhận, có thể gửi lại email:{" "}
         <button
           onClick={handleResendEmail}
-          style={{ border: "1px solid #dcdcdc",
-            height: "38px",
-            width: "130px",
-        }}
+          style={{
+            border: "1px solid #dcdcdc",
+            height: "40px",
+            width: "150px",
+          }}
         >
           Resend Email
         </button>

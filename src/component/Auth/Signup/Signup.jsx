@@ -17,6 +17,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // New state for confirm password
   const [image, setImage] = useState("");
   const [username, setUsername] = useState("");
   const [roles, setRole] = useState("USER");
@@ -28,23 +29,31 @@ const Signup = () => {
   const [success, setSuccess] = useState(false);
 
   const imageRef = useRef(null); // Reference to the Box containing the image
-  const [imageURL, setImageURL] = useState("");
+  // const [imageURL, setImageURL] = useState("");
   const handleClear = () => {
     setEmail("");
     setPassword("");
     setUsername("");
+    setConfirmPassword(""); // Clear confirm password as well
   };
 
   const handleLogin = () => {
     return navigate("/login");
   };
+
   const handleSubmit = async (e) => {
-    let res = await postCreateUser(email, password, username, image, enabled);
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    let res = await postCreateUser(email, password, username, image);
     console.log(">>> result: ", res);
 
-    // Kiểm tra phản hồi từ API
+    // Check response from API
     if (res && res.code === 200) {
-      toast.success("Đăng ký thành công!");
+      toast.success("Registration successful!");
       handleClear();
       handleLogin();
     } else {
@@ -56,30 +65,6 @@ const Signup = () => {
     setSnackBarOpen(false);
     if (success) navigate("/login");
   };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImageURL(url);
-    }
-  };
-
-  const handleClearImage = () => {
-    setImageURL("");
-  };
-
-  // Use ResizeObserver to adjust Box size when image changes
-  useEffect(() => {
-    if (imageRef.current) {
-      const resizeObserver = new ResizeObserver(() => {
-        // You can adjust the Box size here if needed
-      });
-      resizeObserver.observe(imageRef.current);
-
-      return () => resizeObserver.disconnect(); // Cleanup on unmount
-    }
-  }, [imageURL]); // Trigger on image URL change
 
   return (
     <>
@@ -130,7 +115,6 @@ const Signup = () => {
               alignItems="center"
               justifyContent="center"
               width="100%"
-              //   onSubmit={handleSubmit}
             >
               <TextField
                 label="Username"
@@ -153,24 +137,17 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              {/* <TextField
-                label="First Name"
-                name="firstName"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                value={"firstName"}
-                onChange={(e) => e.target.value}
-              />
               <TextField
-                label="Last Name"
-                name="lastName"
+                label="Confirm Password"
+                name="confirmPassword"
+                type="password"
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                value={"lastName"}
-                onChange={(e) => e.target.value}
-              /> */}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
               <TextField
                 label="Email"
                 name="email"
@@ -181,55 +158,6 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              {/* <TextField
-                label="Phone"
-                name="phone"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                value={"phone"}
-                onChange={(e) => e.target.value}
-              /> */}
-              {/* <Box mt={2} width="100%" ref={imageRef}>
-                <Typography variant="h5">Upload and Preview Image</Typography>
-                <TextField
-                  type="file"
-                  inputProps={{ accept: "image/*" }}
-                  fullWidth
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                />
-                {imageURL && (
-                  <Box mt={2}>
-                    <Typography variant="subtitle1">
-                      Selected Image Preview:
-                    </Typography>
-                    <Box
-                      sx={{ */}
-              {/* width: "200px", // Kích thước chiều rộng cố định
-                        height: "200px", // Kích thước chiều cao cố định
-                        overflow: "hidden", // Ẩn phần ảnh vượt ra ngoài khung
-                        display: "flex", // Đảm bảo ảnh căn giữa trong Box
-                        justifyContent: "center",
-                        alignItems: "center",
-                        border: "1px solid #ccc", // Thêm đường viền cho khung
-                        borderRadius: "8px", // Bo góc nếu muốn
-                        marginTop: "8px",
-                      }}
-                    >
-                      <img
-                        src={imageURL}
-                        alt="Preview"
-                        style={{
-                          maxWidth: "100%", // Đảm bảo ảnh không vượt quá chiều rộng của Box
-                          maxHeight: "100%", // Đảm bảo ảnh không vượt quá chiều cao của Box
-                          objectFit: "cover", // Làm cho ảnh có thể lấp đầy khung mà không bị biến dạng
-                        }}
-                      />
-                    </Box>
-                  </Box> */}
-              {/* )} */}
-              {/* </Box> */}
               <Button
                 onClick={handleSubmit}
                 variant="contained"

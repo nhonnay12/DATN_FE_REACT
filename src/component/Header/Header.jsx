@@ -115,7 +115,7 @@ const Header = (props) => {
                 <NavLink to="/" className="nav-link">
                   Home
                 </NavLink>
-                {userRole && (
+                {userRole &&  (
                   <NavLink to="/profile" className="nav-link">
                     Profile
                   </NavLink>
@@ -123,6 +123,11 @@ const Header = (props) => {
                 {userRole && userRole === "ADMIN" && (
                   <NavLink to="/admin" className="nav-link">
                     Admin
+                  </NavLink>
+                )}
+                {userRole && (
+                  <NavLink to="/orderhistory" className="nav-link">
+                    Lịch sử mua hàng
                   </NavLink>
                 )}
               </Nav>
